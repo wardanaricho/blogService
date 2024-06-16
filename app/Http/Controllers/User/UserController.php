@@ -16,11 +16,19 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-
     public function index(): View
     {
-        $users = $this->userService->getAllUser();
-        return view('user.index', [
+        return view('user.index');
+    }
+
+    public function userView(Request $request)
+    {
+        $sort = $request->input('sort', 'asc');
+        $search = $request->input('search', '');
+
+        $users = $this->userService->getUserIndex(10, $sort, $search);
+
+        return view('user.data-user', [
             'users' => $users
         ]);
     }
