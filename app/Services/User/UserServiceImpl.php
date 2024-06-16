@@ -4,6 +4,7 @@ namespace App\Services\User;
 
 use App\Models\User;
 use App\Repositories\User\UserRepository;
+use Illuminate\Contracts\Pagination\Paginator;
 
 class UserServiceImpl implements UserService
 {
@@ -37,5 +38,10 @@ class UserServiceImpl implements UserService
     public function deleteUser(int $id): bool
     {
         return $this->userRepository->delete($id);
+    }
+
+    public function getUserIndex(int $perPage, string $sort = 'asc', ?string $search): Paginator
+    {
+        return $this->userRepository->getUserIndex($perPage, $sort, $search);
     }
 }
