@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Repositories\User\UserRepository;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -25,13 +26,20 @@ class UserServiceImpl implements UserService
         return $this->userRepository->getById($id);
     }
 
-    public function createUser(array $data): User
+    public function createUser(UserRequest $userRequest): User
     {
+        $data = $userRequest->validated();
         return $this->userRepository->create($data);
     }
 
-    public function updateUser(int $id, array $data): bool
+    public function updateUser(int $id, UserRequest $userRequest): bool
     {
+        $data = $userRequest->validated();
+        if ($userRequest->filled('password')) {
+            $data['password'] = bcrypt($userRequest->password);
+        } else {
+            unset($data['password']);
+        }
         return $this->userRepository->update($id, $data);
     }
 

@@ -3,7 +3,7 @@
         <tr>
             <th>Name</th>
             <th>Username</th>
-            <th>Created At</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -11,7 +11,14 @@
             <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->username }}</td>
-                <td>{{ $user->created_at }}</td>
+                <td>
+                    <a href="/user/edit/{{ $user->id }}" class="btn btn-warning">Edit</a>
+                    <form action="/user/delete/{{ $user->id }}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
+                </td>
             </tr>
         @endforeach
     </tbody>

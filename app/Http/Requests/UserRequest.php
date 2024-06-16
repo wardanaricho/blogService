@@ -21,12 +21,17 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|max:100',
-            'username' => 'required|string|max:100|unique:users,username',
-            'password' => 'required|string|min:8',
-            'role' => 'required|string|max:10',
-        ];
+        if ($this->isMethod('post')) {
+            // Rules for create
+            $rules['username'] = 'required|string|max:100|unique:users,username';
+            $rules['password'] = 'required|string|min:8';
+        } elseif ($this->isMethod('put')) {
+            // Rules for update
+            $rules['username'] = 'required|string|max:100';
+            $rules['password'] = 'nullable|string|min:8';
+        }
+
+        return $rules;
     }
 
     /**
