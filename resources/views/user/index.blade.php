@@ -4,6 +4,13 @@
     <div class="container mt-5">
         <h1>Users</h1>
         <div class="row">
+            <div class="col-lg-12">
+                <div class="mb-3">
+
+                    <a href="/user/create" class="btn btn-sm btn-primary">Tambah User</a>
+
+                </div>
+            </div>
             <div class="col-lg-6">
                 <div class="mb-3">
                     <input type="text" id="search" class="form-control" placeholder="Search">

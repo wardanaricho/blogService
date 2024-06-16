@@ -10,3 +10,5 @@ Route::get('/', function () {
 
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/user-view', [UserController::class, 'userView']);
+Route::get('/user/create', [UserController::class, 'create']);
+Route::post('/user/store', [UserController::class, 'store']);
